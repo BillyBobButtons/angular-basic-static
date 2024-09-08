@@ -1,0 +1,9 @@
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+#joke-container {
+  margin: auto;
+  width: 60%;
+}

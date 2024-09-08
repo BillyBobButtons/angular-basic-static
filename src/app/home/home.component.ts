@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+interface Joke {
+  setup: string,
+  punchline: string
+}
 
 @Component({
   selector: 'app-home',
@@ -8,18 +12,22 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class HomeComponent implements OnInit {
-  x: any; // Declare x inside the class
+  joke: Joke; // Declare x inside the class
 
   constructor(private httpClient: HttpClient) {}
 
   ngOnInit(): void {
+   this.displayJoke();
+  }
+
+  displayJoke() {
     const url = 'https://official-joke-api.appspot.com/random_joke';
     
     // Make HTTP GET request
-    this.httpClient.get(url).subscribe(
-      (response) => {
-        this.x = response;  // Assign the response to x
-        console.log(this.x);  // Log the response
+    return this.httpClient.get(url).subscribe(
+      (response: Joke) => {
+        this.joke = { setup: response.setup, punchline: response.punchline };  // Assign the response to x
+        console.log(this.joke);  // Log the response
       },
       (error) => {
         console.error('Error fetching joke:', error); // Handle error
